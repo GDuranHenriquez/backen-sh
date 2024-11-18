@@ -1,4 +1,3 @@
-const { where } = require('sequelize');
 const { Producto, Categoria, Presentacion, Departamento } = require('../../db');
 
 async function getAllProductos(req, res){

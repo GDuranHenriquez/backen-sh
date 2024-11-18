@@ -16,8 +16,9 @@ const dniTipoRouter = require('./routes/dniTipoRouter.js');
 const ventasRouter = require('./routes/ventasRouter.js');
 const routerLoginRegister = require('./routes/routerLoginRegister.js');
 const tokenRouter = require('./routes/routerToken.js');
-const routerDataUser = require('./routes/routerProtecteDateUser')
-const routerDepartamento = require('./routes/routerDepartamento.js')
+const routerDataUser = require('./routes/routerProtecteDateUser');
+const routerDepartamento = require('./routes/routerDepartamento.js');
+const routerPedido = require('./routes/routerPedido.js');
 
 require('./db.js');
 
@@ -56,6 +57,7 @@ server.use('/venta', authenticate, ventasRouter);
 server.use('/usuario', usuarioRouter);
 server.use('/sign-in-out', routerLoginRegister);
 server.use('/token', tokenRouter);
+server.use('/pedidos', authenticate ,routerPedido);
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars

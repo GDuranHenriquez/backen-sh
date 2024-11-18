@@ -54,7 +54,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Categoria, Producto, Presentacion, Cliente, DetalleVenta, TazaDolar, TipoDni, Usuario, Venta, Departamento } = sequelize.models;
+const { Categoria, Producto, Presentacion, Cliente, DetalleVenta, TazaDolar, TipoDni, Usuario, Venta, Departamento, Pedido, MetaVenta } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
@@ -78,6 +78,8 @@ Venta.belongsTo(Departamento, { as: 'venta_departamento', foreignKey: 'ventaDepa
 
 //Usuario, Cliente =>
 Cliente.hasMany(Venta, { as: 'Cliente_Venta', foreignKey: 'clienteVenta', timestamps: false, createdAt: false, updatedAt: false});
+Cliente.hasMany(Pedido, { as: 'Cliente_Pedido', foreignKey: 'clientePedido', timestamps: false, createdAt: false, updatedAt: false});
+Usuario.hasMany(Pedido, { as: 'Usuario_Pedido', foreignKey: 'usuarioPedido', timestamps: false, createdAt: false, updatedAt: false});
 Usuario.hasMany(Venta, { as: 'usuario_venta', foreignKey: 'usuarioVenta', timestamps: false, createdAt: false, updatedAt: false});
 Departamento.hasMany(Venta, { as: 'departamento_venta', foreignKey: 'ventaDepartamento', timestamps: false, createdAt: false, updatedAt: false});
 Cliente.belongsTo(TipoDni, {as: 'cliente_tipoDni', foreignKey:'clienteTipoDni', timestamps: false, createdAt: false, updatedAt: false})
@@ -88,6 +90,9 @@ DetalleVenta.belongsTo(Producto, { foreignKey:'productId', as: 'producto', times
 DetalleVenta.belongsTo(Venta, {as: 'venta', foreignKey:'idVenta', timestamps: false, createdAt: false, updatedAt: false})
 DetalleVenta.belongsTo(TazaDolar, {as: 'tasaDolar', foreignKey:'idTasaDolar', timestamps: false, createdAt: false, updatedAt: false})
 
+//pedidos
+Pedido.belongsTo(Cliente, { as: 'pedido_cliente', foreignKey: 'idCliente' });
+Pedido.belongsTo(Usuario, { as: 'pedido_usuario', foreignKey: 'idUsuario' });
 
 
 // Relación de modelos VideoGame y Platforms.
